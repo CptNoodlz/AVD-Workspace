@@ -1,26 +1,12 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 3.74"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.5"
-    }
-    azapi = {
-      source  = "azure/azapi"
-      version = "~> 1.13"
-    }
-  }
+terraform { 
+  cloud { 
+    
+    organization = "OzOrgTest" 
 
-  cloud {
-    organization = "OzOrgTest"
-
-    workspaces {
-      name = "Git Actions"
-    }
-  }
+    workspaces { 
+      name = "TestOzOrg" 
+    } 
+  } 
 }
 
 provider "azurerm" {
