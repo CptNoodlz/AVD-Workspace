@@ -15,8 +15,9 @@ terraform {
   }
 }
 
-module "avm-res-desktopvirtualization-hostpool" {
-  source  = "Azure/avm-res-desktopvirtualization-hostpool/azurerm"
-  version = "0.2.1"
-  resource_group_name = 
+module "avm-res-resources-resourcegroup" {
+  source   = "Azure/avm-res-resources-resourcegroup/azurerm"
+  version  = "0.1.0"
+  location = "useast"
+  name     = "Testrg"
 }
