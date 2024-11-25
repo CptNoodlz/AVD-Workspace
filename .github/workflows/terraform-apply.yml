@@ -1,45 +1,73 @@
-name: "Terraform Apply"
+name: Terraform Apply
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      working-directory:
+        description: The directory of the Terraform configuration
+        type: string
+        required: true
+    secrets:
+      TF_TOKEN_APP_TERRAFORM_IO:
+        description: The Terraform Cloud API token
+        required: true
+      localAdminPassword:
+        required: true
+      domainAdminPassword:
+        required: true
+      deploymentUserPassword:
+        required: true
+      servicePrincipalSecret:
+        required: true
 
-env:
-  TF_CLOUD_ORGANIZATION: "OzOrgTest"
-  TF_TOKEN_APP_TERRAFORM_IO: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
-  TF_WORKSPACE: "TestOzOrg"
-  CONFIG_DIRECTORY: "./"
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
-  terraform:
-    if: github.repository != 'hashicorp-education/learn-terraform-github-actions'
-    name: "Terraform Apply"
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
+  terraform-apply:
+    runs-on: terraform-cloud
+    environment: Production
+    env:
+      TF_ORGANIZATION: ${{ vars.TF_ORGANIZATION }}
+      TF_TOKEN_APP_TERRAFORM_IO: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
+      ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+      ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
+      ARM_USE_OIDC: true
+      TF_VAR_subscription_id: ${{ vars.ARM_SUBSCRIPTION_ID }}
+      TF_VAR_local_admin_user: ${{ vars.localAdminUser }}
+      TF_VAR_hci_0_local_admin_user: ${{ vars.localAdminUser }}
+      TF_VAR_local_admin_password: ${{ secrets.localAdminPassword }}
+      TF_VAR_hci_0_local_admin_password: ${{ secrets.localAdminPassword }}
+      TF_VAR_domain_admin_user: ${{ vars.domainAdminUser }}
+      TF_VAR_domain_admin_password: ${{ secrets.domainAdminPassword }}
+      TF_VAR_deployment_user_password: ${{ secrets.deploymentUserPassword }}
+      TF_VAR_hci_0_deployment_user_password: ${{ secrets.deploymentUserPassword }}
+      TF_VAR_service_principal_id: ${{ vars.servicePrincipalId }}
+      TF_VAR_hci_0_service_principal_id: ${{ vars.servicePrincipalId }}
+      TF_VAR_service_principal_secret: ${{ secrets.servicePrincipalSecret }}
+      TF_VAR_hci_0_service_principal_secret: ${{ secrets.servicePrincipalSecret }}
+      TF_VAR_rp_service_principal_object_id: ${{ vars.rpServicePrincipalObjectId }}
+      TF_VAR_vm_admin_password: ${{ secrets.localAdminPassword }}
+      TF_VAR_domain_join_password: ${{ secrets.domainAdminPassword }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Upload Configuration
-        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
-        id: apply-upload
+      - uses: hashicorp/setup-terraform@v3
         with:
-          workspace: ${{ env.TF_WORKSPACE }}
-          directory: ${{ env.CONFIG_DIRECTORY }}
+          terraform_wrapper: false
 
-      - name: Create Apply Run
-        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
-        id: apply-run
+      - uses: azure/login@v2
         with:
-          workspace: ${{ env.TF_WORKSPACE }}
-          configuration_version: ${{ steps.apply-upload.outputs.configuration_version_id }}
+          client-id: ${{ vars.ARM_CLIENT_ID }}
+          tenant-id: ${{ vars.ARM_TENANT_ID }}
+          allow-no-subscriptions: true
 
-      - name: Apply
-        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.0.0
-        if: fromJSON(steps.apply-run.outputs.payload).data.attributes.actions.IsConfirmable
-        id: apply
+      - uses: wegmans/actions/terraform/unlock-azure-resources@v1
         with:
-          run: ${{ steps.apply-run.outputs.run_id }}
-          comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
+          working-directory: ${{ inputs.working-directory }}
+
+      - uses: wegmans/actions/terraform/apply@v1
+        with:
+          working-directory: ${{ inputs.working-directory }}
