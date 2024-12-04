@@ -1,4 +1,18 @@
 terraform { 
+    required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.7"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.5"
+    }
+    azapi = {
+      source  = "azure/azapi"
+      version = "~> 2.0"
+    }
+  }
   cloud { 
     
     organization = "OzOrgTest" 
