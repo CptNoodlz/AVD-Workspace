@@ -10,7 +10,7 @@ module "avm-res-network-virtualnetwork" {
   version             = "0.7.1"
   address_space       = ["10.0.0.0/19"]
   location            = "East US2"
-  name                = "TestVnet"
+  name                = "TestVnet1"
   resource_group_name = "Testrg1"
 }
 /*#module "avm-res-sql-managedinstance" {
