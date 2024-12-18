@@ -13,10 +13,17 @@ module "avm-res-network-virtualnetwork" {
   name                = "TestVnet1"
   resource_group_name = "Testrg1"
 }
-/*#module "avm-res-sql-managedinstance" {
-  source  = "Azure/avm-res-sql-managedinstance/azurerm"
-  version = "0.1.0"
-  location = "eastus2"
-  name = "TestMI"
-  resource_group_name = "Testrg1"
-  }*/
+module "avm-res-sql-managedinstance" {
+  source                       = "Azure/avm-res-sql-managedinstance/azurerm"
+  version                      = "0.1.0"
+  location                     = "eastus2"
+  name                         = "TestMI"
+  resource_group_name          = "Testrg1"
+  subnet_id                    = "TestVnet1"
+  storage_size_in_gb           = "512"
+  sku_name                     = "GP_Gen5"
+  license_type                 = "BasePrice"
+  vcores                       = "4"
+  administrator_login          = "techadmin"
+  administrator_login_password = "PZH24X$3mE!!"
+}
