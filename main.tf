@@ -9,13 +9,13 @@ module "avm-res-network-virtualnetwork" {
   source              = "Azure/avm-res-network-virtualnetwork/azurerm"
   version             = "0.7.1"
   address_space       = ["10.0.0.0/19"]
-  location            = module.avm-res-resources-resourcegroup.location
+  location            = var.location
   name                = "TestVnet1"
   resource_group_name = "Testrg1"
 }
 module "avm-res-sql-managedinstance" {
   source                       = "Azure/avm-res-sql-managedinstance/azurerm"
-  location                     = module.avm-res-resources-resourcegroup.location
+  location                     = var.location
   name                         = "testmi"
   resource_group_name          = "Testrg1"
   subnet_id                    = "TestVnet1"
