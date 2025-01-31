@@ -18,7 +18,7 @@ module "avm-res-sql-managedinstance" {
   location                     = var.location
   name                         = "testmi"
   resource_group_name          = "Testrg1"
-  subnet_id                    = "TestVnet1"
+  subnet_id                    = "/subscriptions/4bcc135f-80a8-482f-b67b-fc849aa4b7ac/resourceGroups/Testrg1/providers/Microsoft.Network/virtualNetworks/TestVnet1/subnets/default"
   storage_size_in_gb           = "512"
   sku_name                     = "GP_Gen5"
   license_type                 = "LicenseIncluded"
