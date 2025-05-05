@@ -12,7 +12,8 @@ module "avm-res-maintenance-maintenanceconfiguration" {
   name                = "TestConfig"
   resource_group_name = "Testrg1"
   scope               = "InGuestPatch"
-  InGuestPatchMode    = "User"
-
+  extension_properties = {
+    InGuestPatchMode = "User"
+  }
 
 }
