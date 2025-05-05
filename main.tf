@@ -26,3 +26,13 @@ module "avm-res-sql-managedinstance" {
   administrator_login          = "techadmin"
   administrator_login_password = "PZH24X$3mE!!"
 }
+
+module "avm-res-maintenance-maintenanceconfiguration" {
+  source              = "Azure/avm-res-maintenance-maintenanceconfiguration/azurerm"
+  version             = "0.1.0"
+  location            = var.location
+  name                = "TestConfig"
+  resource_group_name = "Testrg1"
+  scope               = "InGuestPatch"
+
+}
