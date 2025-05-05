@@ -14,14 +14,15 @@ module "avm-res-maintenance-maintenanceconfiguration" {
   scope               = "InGuestPatch"
   extension_properties = {
     InGuestPatchMode = "User"
-    install_patches = {
-      linux = {
-        classifications_to_include = ["Critical", "Security"]
-      }
-      reboot_setting = "IfRequired"
-      windows = {
-        classifications_to_include = ["Critical", "Security"]
-      }
+  }
+  install_patches = {
+    linux = {
+      classifications_to_include = ["Critical", "Security"]
+    }
+    reboot_setting = "IfRequired"
+    windows = {
+      classifications_to_include = ["Critical", "Security"]
     }
   }
 }
+
