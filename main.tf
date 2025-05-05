@@ -16,4 +16,3 @@ module "avm-res-maintenance-maintenanceconfiguration" {
     InGuestPatchMode = "User"
   }
 
-}
