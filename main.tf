@@ -1,13 +1,13 @@
 module "avm-res-resources-resourcegroup" {
   source   = "Azure/avm-res-resources-resourcegroup/azurerm"
-  version  = "0.1.0"
+  version  = "0.2.1"
   location = "eastus2"
   name     = "Testrg1"
 }
 
 module "avm-res-network-virtualnetwork" {
   source              = "Azure/avm-res-network-virtualnetwork/azurerm"
-  version             = "0.7.1"
+  version             = "0.8.1"
   address_space       = ["10.0.0.0/19"]
   location            = var.location
   name                = "TestVnet1"
@@ -15,6 +15,7 @@ module "avm-res-network-virtualnetwork" {
 }
 module "avm-res-sql-managedinstance" {
   source                       = "Azure/avm-res-sql-managedinstance/azurerm"
+  version                      = "0.1.0"
   location                     = var.location
   name                         = "testmi"
   resource_group_name          = "Testrg1"
