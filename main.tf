@@ -32,7 +32,7 @@ module "avm-res-maintenance-maintenanceconfiguration" {
   }
 }
 
-module "avm-res-maintenance-maintenanceconfiguration" {
+module "avm-res-maintenance-maintenanceconfiguration2" {
   source              = "Azure/avm-res-maintenance-maintenanceconfiguration/azurerm"
   version             = "0.1.0"
   location            = var.location
