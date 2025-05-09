@@ -24,5 +24,10 @@ module "avm-res-maintenance-maintenanceconfiguration" {
       classifications_to_include = ["Critical", "Security"]
     }
   }
+  window = {
+    time_zone       = "Eastern Standard Time"
+    recur_every     = "7Day"
+    start_date_time = "2025-05-04 00:00"
+  }
 }
 
