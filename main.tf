@@ -28,7 +28,7 @@ module "avm-res-maintenance-maintenanceconfiguration" {
     time_zone       = "Eastern Standard Time"
     recur_every     = "7Day"
     start_date_time = "2025-05-04 00:00"
-    duration        = "2:00"
+    duration        = "02:00"
   }
 }
 
@@ -56,7 +56,7 @@ module "avm-res-maintenance-maintenanceconfiguration2" {
     recur_every          = "7Day"
     start_date_time      = "2025-05-04 00:00"
     expiration_date_time = "2200-05-04 00:00"
-    duration             = "2:00"
+    duration             = "02:00"
   }
 }
 
