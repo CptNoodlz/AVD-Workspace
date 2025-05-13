@@ -53,7 +53,7 @@ module "avm-res-maintenance-maintenanceconfiguration2" {
   }
   window = {
     time_zone            = "Eastern Standard Time"
-    recur_every          = "7Day"
+    recur_every          = "7Day Tuesday"
     start_date_time      = "2025-05-04 00:00"
     expiration_date_time = "2200-05-04 00:00"
     duration             = "02:00"
