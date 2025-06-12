@@ -22,10 +22,7 @@ variable "resource_group_name" {
   type = string
 }
 
-variable "subnetname" {
-  type = map(list)
-}
-
-variable "subnets" {
-  type = map(list)
+variable "dns_servers" {
+  type = string
+  default = "8.8.8.8"
 }
