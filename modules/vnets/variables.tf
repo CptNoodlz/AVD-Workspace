@@ -23,6 +23,6 @@ variable "resource_group_name" {
 }
 
 variable "dns_servers" {
-  type = string
+  type    = string
   default = "8.8.8.8"
 }
