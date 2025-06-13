@@ -1,8 +1,12 @@
 variable "address_space" {
-  type        = string
-  description = "Vnet Address that is used for the subnets."
+  type        = set(string)
+  description = "(Optional) The address spaces applied to the virtual network. You can supply more than one address space."
+  nullable    = false
 
-
+  validation {
+    condition     = length(var.address_space) > 0
+    error_message = "Address space must contain at least one element."
+  }
 }
 
 variable "location" {
@@ -23,6 +27,22 @@ variable "resource_group_name" {
 }
 
 variable "dns_servers" {
-  type    = string
-  default = "8.8.8.8"
+  type = object({
+    dns_servers = set(string)
+  })
+  default     = null
+  description = <<DESCRIPTION
+(Optional) Specifies a list of IP addresses representing DNS servers.
+
+- `dns_servers`: Set of IP addresses of DNS servers.
+DESCRIPTION
+}
+
+variable "subnets" {
+  type = map(object({
+    address_prefix   = optional(string)
+    address_prefixes = optional(list(string))
+    name             = string
+  }))
+  default = {}
 }

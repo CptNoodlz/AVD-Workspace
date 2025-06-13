@@ -32,3 +32,6 @@ module "avm-res-maintenance-maintenanceconfiguration" {
   }
 }
 
+module "vnets" {
+  source = "./rdc/vnets"
+}
