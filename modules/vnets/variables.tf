@@ -23,14 +23,22 @@ variable "resource_group_name" {
 }
 
 variable "dns_servers" {
-  type    = list(string)
-  default = ["8.8.8.8"]
+  type = object({
+    dns_servers = set(string)
+  })
+  default     = null
+  description = <<DESCRIPTION
+(Optional) Specifies a list of IP addresses representing DNS servers.
+
+- `dns_servers`: Set of IP addresses of DNS servers.
+DESCRIPTION
 }
 
 variable "subnets" {
   type = map(object({
+    address_prefix   = optional(string)
+    address_prefixes = optional(list(string))
     name             = string
-    address_prefixes = list(string)
   }))
-
+  default = {}
 }
