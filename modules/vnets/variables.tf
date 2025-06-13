@@ -1,8 +1,12 @@
 variable "address_space" {
-  type        = string
-  description = "Vnet Address that is used for the subnets."
+  type        = set(string)
+  description = "(Optional) The address spaces applied to the virtual network. You can supply more than one address space."
+  nullable    = false
 
-
+  validation {
+    condition     = length(var.address_space) > 0
+    error_message = "Address space must contain at least one element."
+  }
 }
 
 variable "location" {
