@@ -26,3 +26,11 @@ variable "dns_servers" {
   type    = string
   default = "8.8.8.8"
 }
+
+variable "subnets" {
+  type = map(object({
+    name             = string
+    address_prefixes = string
+  }))
+
+}
