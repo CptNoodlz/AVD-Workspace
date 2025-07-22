@@ -92,3 +92,4 @@ variable "subnets" {
   }))
   default     = {}
   description = "All subnet vars"
+}
