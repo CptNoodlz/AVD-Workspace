@@ -3,7 +3,7 @@ module "this" {
 
   address_space       = ["10.0.0.0/16"]
   location            = "East US"
-  name                = "TestVNet"
+  name                = "TestVNet2"
   resource_group_name = "Testrg1"
   dns_servers = {
     dns_servers = ["8.8.8.8"]
