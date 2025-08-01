@@ -25,7 +25,7 @@ module "that" {
 
   address_space       = ["28.0.0.0/16"]
   location            = "East US"
-  name                = "TestVNet2"
+  name                = "TestVNet3"
   resource_group_name = "Testrg1"
   dns_servers = {
     dns_servers = ["8.8.8.8"]
