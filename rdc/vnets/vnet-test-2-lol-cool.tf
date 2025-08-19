@@ -33,11 +33,11 @@ module "that" {
   subnets = {
     "subnet1" = {
       name             = "subnet1"
-      address_prefixes = "28.25.0.0/19"
+      address_prefixes = "28.0.128.0/24"
     }
     "subnet2" = {
       name             = "subnet2"
-      address_prefixes = "28.35.0.0/19"
+      address_prefixes = "28.0.130.0/24"
     }
   }
 }
