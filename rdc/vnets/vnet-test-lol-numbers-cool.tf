@@ -11,7 +11,7 @@ module "vnet-10-0-0-0-tst-lol-numbers-cool" {
   subnets = {
     "subnet1" = {
       name             = "subnet1"
-      address_prefix = "10.0.0.0/19"
+      address_prefix = "10.0.32.0/24"
     }
     "subnet2" = {
       name             = "subnet2"
