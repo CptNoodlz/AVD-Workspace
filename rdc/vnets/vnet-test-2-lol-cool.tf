@@ -36,7 +36,7 @@ module "that" {
       address_prefixes = ["28.0.128.0/24"]
       delegation       = null
       private_endpoint_network_policies = "Disabled"
-      private_link_service_network_policies_enabled = "False"
+      private_link_service_network_policies = "False"
     }
     "subnet2" = {
       name             = "subnet2"
