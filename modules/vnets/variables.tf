@@ -38,8 +38,8 @@ variable "dns_servers" {
 DESCRIPTION
 }
 
-variable "subnets" {
-  type = map(object({
+variable "subnetsconfig" {
+  type = list(object({
     address_prefix   = optional(string)
     address_prefixes = optional(list(string))
     name             = string
