@@ -44,3 +44,29 @@ module "that" {
     }
   }
 }
+
+module "example_vnet" {
+  source              = "./modules/vnets"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  name                = "vnet-example"
+  address_space       = ["10.42.0.0/16"]
+
+  subnets = {
+    snet-app = {
+      address_prefix       = "10.42.1.0/24"
+      network_security_group_id = azurerm_network_security_group.app.id
+      service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault"]
+      delegation = {
+        name = "webfarm"
+        service_delegation = {
+          name    = "Microsoft.Web/serverFarms"
+          actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+        }
+      }
+    }
+    snet-db = {
+      address_prefixes = ["10.42.2.0/24"]
+    }
+  }
+}
