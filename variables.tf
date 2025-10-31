@@ -53,15 +53,15 @@ DESCRIPTION
 variable "subnets" {
   description = "Map of subnet definitions keyed by subnet name."
   type = map(object({
-    address_prefixes  = optional(list(string))
-    address_prefix    = optional(string)
+    address_prefixes = optional(list(string))
+    address_prefix   = optional(string)
 
-    nat_gateway_id             = optional(string)
-    network_security_group_id  = optional(string)
-    route_table_id             = optional(string)
+    nat_gateway_id            = optional(string)
+    network_security_group_id = optional(string)
+    route_table_id            = optional(string)
 
-    service_endpoints            = optional(list(string))
-    service_endpoint_policy_ids  = optional(list(string))
+    service_endpoints           = optional(list(string))
+    service_endpoint_policy_ids = optional(list(string))
 
     private_endpoint_network_policies_enabled     = optional(bool, true)
     private_link_service_network_policies_enabled = optional(bool, true)

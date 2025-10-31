@@ -32,10 +32,10 @@ module "that" {
   }
   subnets = {
     "subnet1" = {
-      name             = "subnet1"
-      address_prefixes = ["28.0.128.0/24"]
-      delegation       = null
-      private_endpoint_network_policies = "Disabled"
+      name                                  = "subnet1"
+      address_prefixes                      = ["28.0.128.0/24"]
+      delegation                            = null
+      private_endpoint_network_policies     = "Disabled"
       private_link_service_network_policies = "False"
     }
     "subnet2" = {
@@ -54,9 +54,9 @@ module "example_vnet" {
 
   subnets = {
     snet-app = {
-      address_prefix       = "10.42.1.0/24"
+      address_prefix            = "10.42.1.0/24"
       network_security_group_id = azurerm_network_security_group.app.id
-      service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault"]
+      service_endpoints         = ["Microsoft.Storage", "Microsoft.KeyVault"]
       delegation = {
         name = "webfarm"
         service_delegation = {

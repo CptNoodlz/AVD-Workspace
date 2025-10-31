@@ -15,9 +15,9 @@ locals {
       )
 
       # Only build nested objects when IDs provided
-      nat_gateway = sn.nat_gateway_id != null ? { id = sn.nat_gateway_id } : null
+      nat_gateway            = sn.nat_gateway_id != null ? { id = sn.nat_gateway_id } : null
       network_security_group = sn.network_security_group_id != null ? { id = sn.network_security_group_id } : null
-      route_table = sn.route_table_id != null ? { id = sn.route_table_id } : null
+      route_table            = sn.route_table_id != null ? { id = sn.route_table_id } : null
 
       # Service endpoints & policies passthrough
       service_endpoints = sn.service_endpoints
@@ -26,12 +26,12 @@ locals {
       } : null
 
       # Policy flags (AVM expects string Enabled/Disabled for private endpoint policies)
-      private_endpoint_network_policies = sn.private_endpoint_network_policies_enabled ? "Enabled" : "Disabled"
+      private_endpoint_network_policies             = sn.private_endpoint_network_policies_enabled ? "Enabled" : "Disabled"
       private_link_service_network_policies_enabled = sn.private_link_service_network_policies_enabled
 
       # Delegation transformed to list (older AVM schema uses list of objects)
       delegation = sn.delegation != null ? [{
-        name               = sn.delegation.name
+        name = sn.delegation.name
         service_delegation = {
           name = sn.delegation.service_delegation.name
           # actions not required in virtual network inline subnet for basic scenario; omit for simplicity
@@ -42,8 +42,8 @@ locals {
 }
 
 module "vnets" {
-  source              = "Azure/avm-res-network-virtualnetwork/azurerm"
-  version             = "0.8.1"
+  source  = "Azure/avm-res-network-virtualnetwork/azurerm"
+  version = "0.8.1"
 
   resource_group_name = var.resource_group_name
   location            = var.location
@@ -52,7 +52,7 @@ module "vnets" {
   dns_servers         = var.dns_servers
 
   # Inline subnets passed after normalization
-  subnets             = local.normalized_subnets
+  subnets = local.normalized_subnets
 }
 
 
