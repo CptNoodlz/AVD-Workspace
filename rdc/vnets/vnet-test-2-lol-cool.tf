@@ -47,8 +47,8 @@ module "that" {
 
 module "example_vnet" {
   source              = "./modules/vnets"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
+  resource_group_name = "Testrg1"
+  location            = "East US"
   name                = "vnet-example"
   address_space       = ["10.42.0.0/16"]
 
