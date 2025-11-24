@@ -41,29 +41,16 @@ locals {
   }
 }
 
-module "vnets" {
-  source  = "Azure/avm-res-network-virtualnetwork/azurerm"
-  version = "0.8.1"
-
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  name                = var.name
-  address_space       = var.address_space
-  dns_servers         = var.dns_servers
-
-  # Inline subnets passed after normalization
-  subnets = local.normalized_subnets
-}
 
 
-/*
+
 module "avm-res-resources-resourcegroup" {
   source   = "Azure/avm-res-resources-resourcegroup/azurerm"
   version  = "0.2.1"
   location = "eastus2"
   name     = "Testrg1"
 }
-
+/*
 module "avm-res-maintenance-maintenanceconfiguration" {
   source              = "Azure/avm-res-maintenance-maintenanceconfiguration/azurerm"
   version             = "0.1.0"
@@ -89,10 +76,6 @@ module "avm-res-maintenance-maintenanceconfiguration" {
     start_date_time = "2025-05-04 00:00"
     duration        = "02:00"
   }
-}
-
-module "vnets" {
-  source = "./rdc/vnets"
 }
 
 */

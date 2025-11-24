@@ -1,3 +1,9 @@
+############################################
+# Variable Definitions for VNet Wrapper
+# Provides flexible inline subnet declarations
+# Normalized via locals in main.tf
+############################################
+
 variable "address_space" {
   type        = set(string)
   description = "(Optional) The address spaces applied to the virtual network. You can supply more than one address space."
@@ -13,19 +19,21 @@ variable "location" {
   type        = string
   description = "The default location."
   default     = "eastus"
-
 }
 
 variable "name" {
   type        = string
   description = "Name of the vnet."
-
 }
 
 variable "resource_group_name" {
-  type = string
+  type        = string
+  description = "Resource group in which the VNet will be created."
 }
 
+# AVM vnet module expects a simple list of DNS server IPs.
+# We wrap it the same way you originally had; if unnecessary you can
+# simplify later to just list(string).
 variable "dns_servers" {
   type = object({
     dns_servers = set(string)
@@ -34,62 +42,37 @@ variable "dns_servers" {
   description = <<DESCRIPTION
 (Optional) Specifies a list of IP addresses representing DNS servers.
 
-- `dns_servers`: Set of IP addresses of DNS servers.
+- dns_servers: Set of IP addresses of DNS servers.
 DESCRIPTION
 }
 
-variable "subnetsconfig" {
-  type = list(object({
-    address_prefix   = optional(string)
+# New simplified subnets variable schema.
+# Map key = subnet name.
+# Users can supply either address_prefix (single CIDR) or address_prefixes (list).
+# Normalization occurs in main.tf.
+variable "subnets" {
+  description = "Map of subnet definitions keyed by subnet name."
+  type = map(object({
     address_prefixes = optional(list(string))
-    name             = string
-    nat_gateway = optional(object({
-      id = string
-    }))
-    network_security_group = optional(object({
-      id = string
-    }))
-    private_endpoint_network_policies             = optional(string, "Enabled")
+    address_prefix   = optional(string)
+
+    nat_gateway_id            = optional(string)
+    network_security_group_id = optional(string)
+    route_table_id            = optional(string)
+
+    service_endpoints           = optional(list(string))
+    service_endpoint_policy_ids = optional(list(string))
+
+    private_endpoint_network_policies_enabled     = optional(bool, true)
     private_link_service_network_policies_enabled = optional(bool, true)
-    route_table = optional(object({
-      id = string
-    }))
-    service_endpoint_policies = optional(map(object({
-      id = string
-    })))
-    service_endpoints               = optional(set(string))
-    default_outbound_access_enabled = optional(bool, false)
-    sharing_scope                   = optional(string, null)
-    delegation = optional(list(object({
+
+    delegation = optional(object({
       name = string
       service_delegation = object({
-        name = string
+        name    = string
+        actions = optional(list(string), [])
       })
-    })))
-    timeouts = optional(object({
-      create = optional(string, "30m")
-      read   = optional(string, "5m")
-      update = optional(string, "30m")
-      delete = optional(string, "30m")
-    }), {})
-    retry = optional(object({
-      error_message_regex  = optional(list(string), ["ReferencedResourceNotProvisioned"])
-      interval_seconds     = optional(number, 10)
-      max_interval_seconds = optional(number, 180)
-      multiplier           = optional(number, 1.5)
-      randomization_factor = optional(number, 0.5)
-    }), {})
-    role_assignments = optional(map(object({
-      role_definition_id_or_name             = string
-      principal_id                           = string
-      description                            = optional(string, null)
-      skip_service_principal_aad_check       = optional(bool, false)
-      condition                              = optional(string, null)
-      condition_version                      = optional(string, null)
-      delegated_managed_identity_resource_id = optional(string, null)
-      principal_type                         = optional(string, null)
-    })))
+    }))
   }))
-  default     = {}
-  description = "All subnet vars"
+  default = {}
 }
