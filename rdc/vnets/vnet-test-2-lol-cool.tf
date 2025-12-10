@@ -46,7 +46,7 @@ module "that" {
 }
 
 module "example_vnet" {
-  source              = "./modules/vnets"
+  source              = "../../modules/vnets/"
   resource_group_name = "Testrg1"
   location            = "East US"
   name                = "vnet-example"
