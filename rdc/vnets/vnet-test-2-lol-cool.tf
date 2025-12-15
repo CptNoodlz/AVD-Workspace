@@ -23,12 +23,12 @@ module "this" {
 module "that" {
   source = "../../modules/vnets/"
 
-  address_space       = ["28.0.0.0/16"]
+  address_space       = {"28.0.0.0/16"}
   location            = "East US"
   name                = "TestVNet3"
   resource_group_name = "Testrg1"
   dns_servers = {
-    dns_servers = ["8.8.8.8"]
+    dns_servers = toset(["8.8.8.8"])
   }
   subnets = {
     "subnet1" = {
@@ -50,7 +50,7 @@ module "example_vnet" {
   resource_group_name = "Testrg1"
   location            = "East US"
   name                = "vnet-example"
-  address_space       = ["10.42.0.0/16"]
+  address_space       = toset(["10.42.0.0/16"])
 
   subnets = {
     snet-app = {
