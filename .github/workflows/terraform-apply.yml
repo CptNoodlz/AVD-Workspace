@@ -1,7 +1,3 @@
-Copilot said: Here is your full workflow file updated
-Here is your full workflow file updated to use Option 2 (-chdir=rdc/vnets) and to handle the plan artifact correctly:
-
-YAML
 name: 'Terraform Plan/Apply'
 
 on:
