@@ -23,7 +23,7 @@ module "this" {
 module "that" {
   source = "../../modules/vnets/"
 
-  address_space       = {"28.0.0.0/16"}
+  address_space       = ["28.0.0.0/16"]
   location            = "East US"
   name                = "TestVNet3"
   resource_group_name = "Testrg1"
