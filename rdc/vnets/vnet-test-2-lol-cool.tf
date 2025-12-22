@@ -58,7 +58,6 @@ module "example_vnet" {
   subnets = {
     snet-app = {
       address_prefix            = "10.42.1.0/24"
-      network_security_group_id = azurerm_network_security_group.app.id
       service_endpoints         = ["Microsoft.Storage", "Microsoft.KeyVault"]
       delegation = {
         name = "webfarm"
