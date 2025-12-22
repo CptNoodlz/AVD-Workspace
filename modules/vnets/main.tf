@@ -1,15 +1,14 @@
-
 module "vnets" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm"
   version = "0.16.0"
 
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  name                = var.name
-  address_space       = var.address_space
-  dns_servers         = var.dns_servers
+  parent_id = data.azurerm_resource_group.Rg.id
 
-  # Inline subnets passed after normalization
+  location      = var.location
+  name          = var.name
+  address_space = var.address_space
+  dns_servers   = var.dns_servers
+
   subnets = local.normalized_subnets
 }
 
