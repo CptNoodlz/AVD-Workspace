@@ -1,5 +1,7 @@
 
-
+module "rdc_vnets" {
+  source = "./rdc/vnets"
+}
 
 
 module "avm-res-resources-resourcegroup" {
