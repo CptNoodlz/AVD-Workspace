@@ -51,6 +51,9 @@ module "example_vnet" {
   location            = "East US"
   name                = "vnet-example"
   address_space       = toset(["10.42.0.0/16"])
+  dns_servers = {
+    dns_servers = toset(["8.8.8.8"])
+  }
 
   subnets = {
     snet-app = {
