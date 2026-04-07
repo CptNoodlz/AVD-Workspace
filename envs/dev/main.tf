@@ -8,7 +8,7 @@
 data "azurerm_subnet" "aks_system" {
   name                 = "snet-aks-system"
   virtual_network_name = "vnet-rdc-aks-eastus2"
-  resource_group_name  = "rg-rdc-networking-eastus2"
+  resource_group_name  = "Testrg1"
 }
 
 module "aks_dev" {
