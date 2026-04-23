@@ -10,7 +10,7 @@ module "vnet-rdc-aks-eastus2" {
 
   name                = "vnet-rdc-aks-eastus2"
   location            = "East US 2"
-  resource_group_name = "rg-rdc-networking-eastus2"
+  resource_group_name = "Testrg1"
   address_space       = toset(["10.10.0.0/16"])
   dns_servers = {
     dns_servers = toset(["168.63.129.16"])

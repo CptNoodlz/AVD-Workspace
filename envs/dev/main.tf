@@ -16,7 +16,7 @@ module "aks_dev" {
 
   name                = "aks-dev-eastus2"
   location            = "East US 2"
-  resource_group_name = "rg-rdc-aks-eastus2"
+  resource_group_name = "Testrg1"
 
   kubernetes_version      = "1.29"
   sku_tier                = "Standard"
